@@ -8,19 +8,25 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
+    <!-- This is all the HTML there is, React does everything else. -->
     <div id="root"></div>
 
     <script type="text/babel">
       function MyApp() {
+        // Set aside the data and the mutator, and set and initial state.
         const [items, setItems] = React.useState(null);
         
+        // Call every time a render occurs
         React.useEffect(() => {
           const getItems = async () => {
             const b = await fetch('http://localhost:3000/items.json');
             const c = await b.json();
+            // Call the mutator from above.
             setItems(c);
           }
+          // Call what we just defined.
           getItems();
+        // An empty array denotes only the first render.
         }, []);
         
         function tableItems(item) {
